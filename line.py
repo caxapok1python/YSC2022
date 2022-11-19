@@ -92,10 +92,12 @@ while True:
     _, thrsh1 = cv2.threshold(gray, line_bin, 255, cv2.THRESH_BINARY_INV)
     moments = cv2.moments(thrsh1)
     if moments['m00'] != 0:
+        print(moments['m00'])
+        if moments['m00'] > work_width * work_height * 100:
+            thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
+            moments = cv2.moments(thrsh1)
         line_center = (int(moments["m10"] / moments["m00"]), int(moments["m01"] / moments["m00"]))
         alc = (0 + int((w - work_width) / 2) + line_center[0], work_pos + line_center[1])
-        # cv2.circle(crop, line_center, 3, (0, 255, 0), -1)  # debug
-        # cv2.circle(img, robot_center, 3, (0, 0, 255), -1)  # debug
         dx = robot_center[0] - alc[0]
         dy = robot_center[1] - alc[1]
         angle = float(np.degrees(atan2(dx, dy)))
