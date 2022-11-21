@@ -5,8 +5,8 @@
 
 // left motor pins
 #define LEFT_A 3
-#define LEFT_B 5
-#define LEFT_PWM 7
+#define LEFT_B 7
+#define LEFT_PWM 5
 
 // sides
 #define LEFT true
@@ -37,24 +37,28 @@ short int backwardPwm(const short int val){
 
 // setup power manualy (0 <= power <= 255)
 void manualPower(bool left, const short int power){
-  if (power > 0){
-    if (left){
+  // forward
+  if (power > 0){ 
+    if (left){ // left
       digitalWrite(LEFT_A, HIGH);
       digitalWrite(LEFT_B, HIGH);
       analogWrite(LEFT_PWM, power);
       return;
-    }
+    } 
+    // right
     digitalWrite(RIGHT_A, HIGH);
     digitalWrite(RIGHT_B, HIGH);
     analogWrite(RIGHT_PWM, power);
     return;
   }
-  if (left){
+  // backward
+  if (left){ // left
       digitalWrite(LEFT_A, HIGH);
       digitalWrite(LEFT_B, LOW);
       analogWrite(LEFT_PWM, power);
       return;
     }
+    // right
     digitalWrite(RIGHT_A, HIGH);
     digitalWrite(RIGHT_B, LOW);
     analogWrite(RIGHT_PWM, power);
@@ -63,8 +67,9 @@ void manualPower(bool left, const short int power){
 
 // convert joystick value to motor signal
 void setPower(bool left, const short int value){
+  // if value in center range stop motor
   if (value <= stickRange[2] + centerRange && value >= stickRange[2] - centerRange){
-    if (left){
+    if (left){ // left
       digitalWrite(LEFT_A, LOW);
       digitalWrite(LEFT_B, LOW);
       analogWrite(LEFT_PWM, 0);

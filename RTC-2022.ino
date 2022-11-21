@@ -6,17 +6,31 @@
 #include "rpi.h" // rpi library (no code)
 #include "automotive.h" // automatisation library
 
+/*
+┌─────────────────────────────────────────────────────────────┐
+│                            SETUP                            │
+└─────────────────────────────────────────────────────────────┘
+*/
 void setup() {
-  Serial.begin(115200);
-  delay(10);
-
-  // setup compopents
-  setupMotors(); // motors
+  
+  // setup components
+  // firmata serail 57600 baud
   setupJoystick(); // joystick
+  
+  setupRPI(); // raspberry pi: firmata setup(long time ± 10sec)
+  setupMotors(); // motors: setup drivers
   setupMan(); // manipulator
-  setupRPI(); // raspberry pi
+
+  setupGyro(); // gyro & acceleraton
+  
 }
 
+
+/*
+┌─────────────────────────────────────────────────────────────┐
+│                            LOOP                             │
+└─────────────────────────────────────────────────────────────┘
+*/
 void loop() {
   // read joystick
   readTumblers(); // tumblers
@@ -29,7 +43,5 @@ void loop() {
 
   // automative
   checkAutomotive(); // check start for automotive
-  
-  
 
 }

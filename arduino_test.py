@@ -5,7 +5,6 @@ import time
 k = 1
 statpower = 1.0
 
-
 class Motor:
     def __init__(self, inA: int, inB: int, pwm: int):
         global board
@@ -63,7 +62,7 @@ PORT = '/dev/tty.usbmodem14101'
 board = pyfirmata.Arduino(PORT)
 print("Communication Successfully started")
 
-left = Motor(3, 5, 7)
+left = Motor(3, 7, 5)
 right = Motor(2, 4, 6)
 chassis = Chassis(left, right)
 

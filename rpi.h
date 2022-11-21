@@ -697,7 +697,7 @@ void sysexCallback(byte command, byte argc, byte *argv)
 }
 
 /*==============================================================================
- * SETUP()
+ * SETUP
  *============================================================================*/
 
 void systemResetCallback()
@@ -782,7 +782,7 @@ void setupRPI()
 /*==============================================================================
  * LOOP()
  *============================================================================*/
-void rpiLoop()
+void loopRPI()
 {
   byte pin, analogPin;
 
@@ -794,11 +794,6 @@ void rpiLoop()
    * checking digital inputs.  */
   while (Firmata.available())
     Firmata.processInput();
-    readJoyButton();
-    if (buttonLeft){
-      return;
-    }
-    
 
   // TODO - ensure that Stream buffer doesn't go over 60 bytes
 
