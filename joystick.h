@@ -92,3 +92,64 @@ void readJoyButton(){
   if (pulseIn(LEFT_BUTTON, 1) > buttonRange) buttonLeft = true;
   else buttonLeft = false;
 }
+
+// 
+void debugJoystick(){
+  if (setupped){
+    return;
+  }
+  // if not setupped raspberry do debug
+  // stup serial
+  Serial.begin(115200);
+  delay(10);
+
+  Serial.print("A0:");
+  Serial.print(analogRead(A0));
+  Serial.print(" | ");
+
+  Serial.print("A1:");
+  Serial.print(analogRead(A1));
+  Serial.print(" | ");
+
+  Serial.print("A2:");
+  Serial.print(analogRead(A2));
+  Serial.print(" | ");
+
+  Serial.print("A3:");
+  Serial.print(analogRead(A3));
+  Serial.print(" | ");
+
+  Serial.print("A4:");
+  Serial.print(analogRead(A4));
+  Serial.print(" | ");
+
+  Serial.print("A5:");
+  Serial.print(analogRead(A5));
+  Serial.print(" | ");
+
+  Serial.print("A6:");
+  Serial.print(analogRead(A6));
+  Serial.print(" | ");
+
+  Serial.print("A7:");
+  Serial.print(analogRead(A7));
+  Serial.print(" | ");
+
+  Serial.print("A8:");
+  Serial.print(analogRead(A8));
+  Serial.print(" | ");
+
+  Serial.print("A9:");
+  Serial.print(analogRead(A9));
+  Serial.print(" | ");
+
+  // Serial.print("A10:");
+  // Serial.print(analogRead(A10));
+  // Serial.print(" | ");
+
+  // Serial.print("A11:");
+  // Serial.print(analogRead(A11));
+  // Serial.print(" | ");
+
+  Serial.println();
+}

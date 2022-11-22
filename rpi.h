@@ -777,6 +777,9 @@ void setupRPI()
   }
 
   systemResetCallback();  // reset to default config
+
+  // up setup flag
+  setupped = true;
 }
 
 /*==============================================================================
@@ -784,6 +787,20 @@ void setupRPI()
  *============================================================================*/
 void loopRPI()
 {
+  // --custom code--
+  
+  // check exit condition
+  readJoyButton(); // button
+  if (buttonLeft > buttonRange){
+    return;
+  }
+
+  // setup if not setupped
+  if (!setupped) setupRPI();
+
+  // --custom code--
+
+
   byte pin, analogPin;
 
   /* DIGITALREAD - as fast as possible, check for changes and output them to the

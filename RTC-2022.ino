@@ -1,3 +1,5 @@
+bool setupped = false;
+
 // Include
 #include "joystick.h" // joystick library
 #include "motors.h" // motors driver library
@@ -12,17 +14,17 @@
 └─────────────────────────────────────────────────────────────┘
 */
 void setup() {
-  
   // setup components
   // firmata serail 57600 baud
   setupJoystick(); // joystick
   
-  setupRPI(); // raspberry pi: firmata setup(long time ± 10sec)
+  // now you can find setupRPI in loopRPI in rpi.h
+  // setupRPI(); // raspberry pi: firmata setup(long time ± 10sec) 
+  
   setupMotors(); // motors: setup drivers
   setupMan(); // manipulator
 
   setupGyro(); // gyro & acceleraton
-  
 }
 
 
