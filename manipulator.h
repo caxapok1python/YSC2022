@@ -63,12 +63,12 @@ void manCatch(bool flag){
 // check tumblers and run functions (manipulator main loop)
 void controlMan(){
   // low tumbler
-  if (lowTumbler > tumblerRange[1]){ // low tumbler up
+  if (lowTumbler > tumblerRange[1]){ // low tumbler down
     man2Pos(defaultPos);
     delay(50);
     return;
   }
-  if (lowTumbler < tumblerRange[0]){ // low tumbler down
+  if (lowTumbler < tumblerRange[0]){ // low tumbler up
     man2Pos(workPos);
     delay(50);
     return;
@@ -86,11 +86,11 @@ void controlMan(){
 
   // mode tumbler
   if (midTumbler < tumblerRange[0]){ // mode tumbler up
-    man2Pos(upPos);
     delay(50);
     return;
   }
   if (midTumbler > tumblerRange[1]){ // mode tumbler down
+    delay(50);
     return;
   }
 
@@ -107,17 +107,19 @@ void controlMan(){
 
 // manual manipulator control
 void manualMan(){
-
   return;
 }
 
 // read manipulator cap button
 void readCap(){
-  capState = !digitalRead(CAP);
+  capState = pulseIn(CAP, 1);
 }
 
 // test man positions only ( declarate after setupMan() ) 
 void testMan(){
-  man2zero();
+  while (1){
+    readCap();
+    Serial.println(capState);    
+  }
   delay(1000 * 1000); // delay (1000 * 1000 about 16 min)
 }

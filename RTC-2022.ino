@@ -14,6 +14,10 @@ bool setupped = false;
 └─────────────────────────────────────────────────────────────┘
 */
 void setup() {
+  // setup serial
+  Serial.begin(115200);
+  delay(10);
+  
   // setup components
   // firmata serail 57600 baud
   setupJoystick(); // joystick
@@ -24,7 +28,7 @@ void setup() {
   setupMotors(); // motors: setup drivers
   setupMan(); // manipulator
 
-  setupGyro(); // gyro & acceleraton
+  setupGyro(); // gyro & acceleration
 }
 
 
@@ -34,6 +38,10 @@ void setup() {
 └─────────────────────────────────────────────────────────────┘
 */
 void loop() {
+  // testMan(); // debug
+
+  // calibrateSticks(); // debug
+
   // read joystick
   readTumblers(); // tumblers
   readSticks(); // sticks
@@ -41,9 +49,9 @@ void loop() {
 
   // control robot components
   controlMotors(); // motors
-  controlMan(); // maipulator
+  controlMan(); // manipulator
 
-  // automative
+  // automotive
   checkAutomotive(); // check start for automotive
 
 }

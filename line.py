@@ -7,13 +7,6 @@ import time
 
 k = 1
 statpower = 1.0
-line_bin = 150
-
-work_pos = 50
-work_height = 20
-work_width = 600
-blur_size = 13
-
 last_turn = 0
 
 
@@ -79,6 +72,16 @@ right = Motor(2, 4, 6)
 chassis = Chassis(left, right)
 
 cap = cv2.VideoCapture(0)
+ret, sample = cap.read()
+while not ret:
+    ret, sample = cap.read()
+h, w = sample.shape[:2]
+line_bin = 90
+work_pos = h - h * 0.01 * 20
+work_height = 20
+work_width = w * 0.01 * 60
+blur_size = 13
+
 
 while True:
     ret, img = cap.read()
@@ -93,7 +96,7 @@ while True:
     moments = cv2.moments(thrsh1)
     if moments['m00'] != 0:
         print(moments['m00'])
-        if moments['m00'] > work_width * work_height * 100:
+        if moments['m00'] > work_width * work_height * 1000:
             thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
             moments = cv2.moments(thrsh1)
         line_center = (int(moments["m10"] / moments["m00"]), int(moments["m01"] / moments["m00"]))

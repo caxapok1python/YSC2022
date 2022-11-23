@@ -12,17 +12,11 @@
 #define HIGH_TUMBLER A5
 #define MODE_TUMBLER A3
 
-// tumbler values
-// low tumbler (up > tumblerRange[1]; down < tumblerRange[0])
-// middle tumbler (up < tumblerRange[0]; down > tumblerRange[1])
-// high tumbler (up > tumblerRange[1]; down < tumblerRange[0])
-// mode tumbler (up < tumblerRange[0]; down > tumblerRange[1])
-
 // constant joystick ranges
-const short int stickRange[3] = {980, 1995, 1475}; // stick range (min, max, medium)
+const short int stickRange[3] = {971, 1979, 1475}; // stick range (min, max, medium)
 const short int centerRange = 60; // anti noise protection in medium position of stick
-const short int tumblerRange[3] = {1200, 1980}; // tumbler range (min deadline, max deadline)
-const short int buttonRange = 1800; // button deadpoint
+const short int tumblerRange[3] = {1200, 1800}; // tumbler range (min deadline, max deadline)
+const short int buttonRange = 1500; // button deadpoint
 
 // setup default position of sticks
 short int leftStick = stickRange[2]; 
@@ -45,21 +39,6 @@ void setupJoystick(){
   pinMode(MODE_TUMBLER, INPUT);
   pinMode(LEFT_BUTTON, INPUT);
 }
-
-// void calibateSticks(){
-//   // start
-//   for (short int timer = 0; timer <=  1000 * 2; timer++){
-//     leftJoy[0] = min(leftJoyData[0], analogRead(LEFT_JOY));
-//     rightJoyData[0] = min(rightJoyData[0], analogRead(RIGHT_JOY));
-//   }
-//   // change
-//   for (short int timer = 0; timer <=  1000 * 2; timer++){
-//     leftJoyData[1] = max(leftJoyData[1], analogRead(LEFT_JOY));
-//     rightJoyData[1] = max(rightJoyData[1], analogRead(RIGHT_JOY));
-//   }
-//   leftJoyData[2] = (leftJoyData[0]+leftJoyData[1])/2;
-//   rightJoyData[2] = (rightJoyData[0]+rightJoyData[1])/2;
-// }
 
 // read sticks
 void readSticks(){
@@ -99,48 +78,46 @@ void debugJoystick(){
     return;
   }
   // if not setupped raspberry do debug
-  // stup serial
-  Serial.begin(115200);
-  delay(10);
+  
 
   Serial.print("A0:");
-  Serial.print(analogRead(A0));
+  Serial.print(pulseIn(A0, 1));
   Serial.print(" | ");
 
   Serial.print("A1:");
-  Serial.print(analogRead(A1));
+  Serial.print(pulseIn(A1, 1));
   Serial.print(" | ");
 
   Serial.print("A2:");
-  Serial.print(analogRead(A2));
+  Serial.print(pulseIn(A2, 1));
   Serial.print(" | ");
 
   Serial.print("A3:");
-  Serial.print(analogRead(A3));
+  Serial.print(pulseIn(A3, 1));
   Serial.print(" | ");
 
   Serial.print("A4:");
-  Serial.print(analogRead(A4));
+  Serial.print(pulseIn(A4, 1));
   Serial.print(" | ");
 
   Serial.print("A5:");
-  Serial.print(analogRead(A5));
+  Serial.print(pulseIn(A5, 1));
   Serial.print(" | ");
 
   Serial.print("A6:");
-  Serial.print(analogRead(A6));
+  Serial.print(pulseIn(A6, 1));
   Serial.print(" | ");
 
   Serial.print("A7:");
-  Serial.print(analogRead(A7));
+  Serial.print(pulseIn(A7, 1));
   Serial.print(" | ");
 
   Serial.print("A8:");
-  Serial.print(analogRead(A8));
+  Serial.print(pulseIn(A8, 1));
   Serial.print(" | ");
 
   Serial.print("A9:");
-  Serial.print(analogRead(A9));
+  Serial.print(pulseIn(A9, 1));
   Serial.print(" | ");
 
   // Serial.print("A10:");
@@ -152,4 +129,33 @@ void debugJoystick(){
   // Serial.print(" | ");
 
   Serial.println();
+}
+
+// calculate sticks max and min
+void calibateSticks(){
+  // start
+  short int lmin = 2000;
+  short int rmin = 2000;
+  short int lmax = 0;
+  short int rmax = 0;
+
+  while (true){
+    readSticks();
+
+    lmin = min(lmin, leftStick);
+    rmin = min(rmin, rightStick);
+
+    lmax = max(lmax, leftStick);
+    rmax = max(rmax, rightStick);
+    
+    Serial.print(lmin);
+    Serial.print("-");
+    Serial.print(lmax);
+    Serial.print(" ");   
+    Serial.print(rmin);
+    Serial.print("-");
+    Serial.print(rmax);
+    Serial.println();  
+    delay(100);
+  }
 }
