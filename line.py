@@ -63,11 +63,11 @@ class Chassis:
         self.right.set_power(rpower)
 
 
-PORT = '/dev/tty.usbmodem14101'
+PORT = '/dev/ttyUSB0'
 board = pyfirmata.Arduino(PORT)
 print("Communication Successfully started")
 
-left = Motor(3, 5, 7)
+left = Motor(3, 7, 5)
 right = Motor(2, 4, 6)
 chassis = Chassis(left, right)
 

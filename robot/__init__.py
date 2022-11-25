@@ -5,25 +5,25 @@ from .software import *
 
 
 class Robot:
-    camera: Camera
-    chassis: Chassis
-    right: Motor
-    left: Motor
-
-    def __init__(self, serial: str):
+    def __init__(self, serial='/dev/ttyUSB0'):
+        self.camera = None
+        self.chassis = None
+        self.right = None
+        self.left = None
         self.board = pyfirmata.Arduino(serial)
         print("Communication Successfully started")
 
-    def setup_motors(self, left: Tuple[int, int, int], right: Tuple[int, int, int]):
+    def setup_motors(self, left: Tuple[int, int, int], right: Tuple[int, int, int], max_power=0.5, k=1.0):
         self.left = Motor(self.board, *left)
         self.right = Motor(self.board, *right)
-        self.chassis = Chassis(self.left, self.right)
+        self.chassis = Chassis(self.left, self.right, max_power, k)
 
     def setup_camera(self, camera_number=0):
         self.camera = Camera(camera_number)
 
     def stop(self):
         self.chassis.set_power(0, 0)
+        self.camera.stop()
 
 
 class Callback:

@@ -28,22 +28,23 @@ class Motor:
 
 
 class Chassis:
-    def __init__(self, leftside: Motor, rightside: Motor):
+    def __init__(self, leftside: Motor, rightside: Motor, max_power=0.5, k=1.0):
         self.left = leftside
         self.right = rightside
+        self.k = k
+        self.statpower = max_power
 
     def direction(self, angle: float):
         '''
         :param angle: float between -90 and 90
         :return: None
         '''
-        global statpower, k
-        sp = statpower
+        sp = self.statpower
         if angle > 0:
-            lpower = (sp * (90 - abs(angle))) / 90 * k
+            lpower = (sp * (90 - abs(angle))) / 90 * self.k
             rpower = sp
         else:
-            rpower = (sp * (90 - abs(angle))) / 90 * k
+            rpower = (sp * (90 - abs(angle))) / 90 * self.k
             lpower = sp
 
         self.left.set_power(lpower)
