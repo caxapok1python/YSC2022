@@ -74,9 +74,6 @@ void readJoyButton(){
 
 // 
 void debugJoystick(){
-  if (setupped){
-    return;
-  }
   // if not setupped raspberry do debug
   
 

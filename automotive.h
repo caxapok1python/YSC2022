@@ -12,6 +12,9 @@
 #define FORWARD 1
 #define BACKWARD 0
 
+// reset pin
+#define RST 12
+
 
 GyverPID regulator(0, 0, 0, DT);
 
@@ -39,10 +42,10 @@ void checkAutomotive(){
     delay(100);
   }
 
-  if (buttonLeft){  // pressed left button
-    buttonLeft = false;
+  if (buttonLeft > buttonRange){  // pressed left button
     delay(50);
-    loopRPI(); 
+    // control Arduino from Raspberry PI
+    runRPI(); 
   }
 }
 

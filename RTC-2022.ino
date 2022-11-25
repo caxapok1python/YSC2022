@@ -1,6 +1,6 @@
-bool setupped = false;
-
 // Include
+#include "Arduino.h" // basic library
+#include "reset.h" // rescure reset 
 #include "joystick.h" // joystick library
 #include "motors.h" // motors driver library
 #include "manipulator.h" // manipulator library
@@ -14,6 +14,9 @@ bool setupped = false;
 └─────────────────────────────────────────────────────────────┘
 */
 void setup() {
+  setupRescure(); // setup sercure reset pin
+
+  // debug
   // setup serial
   Serial.begin(115200);
   delay(10);
@@ -21,9 +24,6 @@ void setup() {
   // setup components
   // firmata serail 57600 baud
   setupJoystick(); // joystick
-  
-  // now you can find setupRPI in loopRPI in rpi.h
-  // setupRPI(); // raspberry pi: firmata setup(long time ± 10sec) 
   
   setupMotors(); // motors: setup drivers
   setupMan(); // manipulator

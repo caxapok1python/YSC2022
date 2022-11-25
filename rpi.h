@@ -1,26 +1,8 @@
+
 /*
-  Firmata is a generic protocol for communicating with microcontrollers
-  from software on a host computer. It is intended to work with
-  any host computer software package.
-
-  To download a host software package, please click on the following link
-  to open the list of Firmata client libraries in your default browser.
-
-  https://github.com/firmata/arduino#firmata-client-libraries
-
-  Copyright (C) 2006-2008 Hans-Christoph Steiner.  All rights reserved.
-  Copyright (C) 2010-2011 Paul Stoffregen.  All rights reserved.
-  Copyright (C) 2009 Shigeru Kobayashi.  All rights reserved.
-  Copyright (C) 2009-2016 Jeff Hoefs.  All rights reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  See file LICENSE.txt for further informations on licensing terms.
-
-  Last updated August 17th, 2017
+┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+                    DEFAULT FIRMATA CODE                   │
+└ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
 */
 
 #include <Servo.h>
@@ -697,7 +679,7 @@ void sysexCallback(byte command, byte argc, byte *argv)
 }
 
 /*==============================================================================
- * SETUP
+ * SETUP()
  *============================================================================*/
 
 void systemResetCallback()
@@ -777,30 +759,17 @@ void setupRPI()
   }
 
   systemResetCallback();  // reset to default config
-
-  // up setup flag
-  setupped = true;
 }
 
 /*==============================================================================
  * LOOP()
  *============================================================================*/
-void loopRPI()
+void loopFirmataRPI()
 {
-  // --custom code--
-  
-  // check exit condition
-  readJoyButton(); // button
-  if (buttonLeft > buttonRange){
-    return;
-  }
-
-  // setup if not setupped
-  if (!setupped) setupRPI();
-
-  // --custom code--
-
-
+  // READ JOYSTICK BUTTON
+  int btnVal = pulseIn(LEFT_BUTTON, 1);
+  // REBOOT ARDUINO
+  if (btnVal > buttonRange) resetArduino();
   byte pin, analogPin;
 
   /* DIGITALREAD - as fast as possible, check for changes and output them to the
@@ -811,6 +780,10 @@ void loopRPI()
    * checking digital inputs.  */
   while (Firmata.available())
     Firmata.processInput();
+    // READ JOYSTICK BUTTON
+    btnVal = pulseIn(LEFT_BUTTON, 1);
+    // REBOOT ARDUINO
+    if (btnVal > buttonRange) resetArduino();
 
   // TODO - ensure that Stream buffer doesn't go over 60 bytes
 
@@ -837,4 +810,9 @@ void loopRPI()
 #ifdef FIRMATA_SERIAL_FEATURE
   serialFeature.update();
 #endif
+}
+
+void runRPI(){
+  setupRPI();
+  loopFirmataRPI();
 }
