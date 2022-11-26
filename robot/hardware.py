@@ -40,15 +40,15 @@ class Chassis:
         :return: None
         '''
         sp = self.statpower
-        if angle > 0:
+        if angle < 0:
             lpower = (sp * (90 - abs(angle))) / 90 * self.k
             rpower = sp
         else:
             rpower = (sp * (90 - abs(angle))) / 90 * self.k
             lpower = sp
 
-        self.left.set_power(lpower)
-        self.right.set_power(rpower)
+        self.left.set_power(-1 * lpower)
+        self.right.set_power(-1 * rpower)
 
     def set_power(self, lpower, rpower):
         self.left.set_power(lpower)
