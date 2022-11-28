@@ -1,5 +1,5 @@
 // pin
-#define RST 12
+#define RST 12 // pin to push reset
 
 // restart arduino
 void setupRescure(){

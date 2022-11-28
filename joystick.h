@@ -74,9 +74,6 @@ void readJoyButton(){
 
 // 
 void debugJoystick(){
-  // if not setupped raspberry do debug
-  
-
   Serial.print("A0:");
   Serial.print(pulseIn(A0, 1));
   Serial.print(" | ");

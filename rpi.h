@@ -766,50 +766,58 @@ void setupRPI()
  *============================================================================*/
 void loopFirmataRPI()
 {
-  // READ JOYSTICK BUTTON
-  int btnVal = pulseIn(LEFT_BUTTON, 1);
-  // REBOOT ARDUINO
-  if (btnVal > buttonRange) resetArduino();
-  byte pin, analogPin;
-
-  /* DIGITALREAD - as fast as possible, check for changes and output them to the
-   * FTDI buffer using Serial.print()  */
-  checkDigitalInputs();
-
-  /* STREAMREAD - processing incoming messagse as soon as possible, while still
-   * checking digital inputs.  */
-  while (Firmata.available())
-    Firmata.processInput();
+  while (true){
     // READ JOYSTICK BUTTON
-    btnVal = pulseIn(LEFT_BUTTON, 1);
+    int btnVal = pulseIn(LEFT_BUTTON, 1);
     // REBOOT ARDUINO
-    if (btnVal > buttonRange) resetArduino();
+    if (btnVal > buttonRange){
+      resetArduino();
+      return;
+    }
+    byte pin, analogPin;
 
-  // TODO - ensure that Stream buffer doesn't go over 60 bytes
+    /* DIGITALREAD - as fast as possible, check for changes and output them to the
+    * FTDI buffer using Serial.print()  */
+    checkDigitalInputs();
 
-  currentMillis = millis();
-  if (currentMillis - previousMillis > samplingInterval) {
-    previousMillis += samplingInterval;
-    /* ANALOGREAD - do all analogReads() at the configured sampling interval */
-    for (pin = 0; pin < TOTAL_PINS; pin++) {
-      if (IS_PIN_ANALOG(pin) && Firmata.getPinMode(pin) == PIN_MODE_ANALOG) {
-        analogPin = PIN_TO_ANALOG(pin);
-        if (analogInputsToReport & (1 << analogPin)) {
-          Firmata.sendAnalog(analogPin, analogRead(analogPin));
+    /* STREAMREAD - processing incoming messagse as soon as possible, while still
+    * checking digital inputs.  */
+    while (Firmata.available())
+      Firmata.processInput();
+      // READ JOYSTICK BUTTON
+      btnVal = pulseIn(LEFT_BUTTON, 1);
+      // REBOOT ARDUINO
+      if (btnVal > buttonRange){
+      resetArduino();
+      return;
+    }
+
+    // TODO - ensure that Stream buffer doesn't go over 60 bytes
+
+    currentMillis = millis();
+    if (currentMillis - previousMillis > samplingInterval) {
+      previousMillis += samplingInterval;
+      /* ANALOGREAD - do all analogReads() at the configured sampling interval */
+      for (pin = 0; pin < TOTAL_PINS; pin++) {
+        if (IS_PIN_ANALOG(pin) && Firmata.getPinMode(pin) == PIN_MODE_ANALOG) {
+          analogPin = PIN_TO_ANALOG(pin);
+          if (analogInputsToReport & (1 << analogPin)) {
+            Firmata.sendAnalog(analogPin, analogRead(analogPin));
+          }
+        }
+      }
+      // report i2c data for all device with read continuous mode enabled
+      if (queryIndex > -1) {
+        for (byte i = 0; i < queryIndex + 1; i++) {
+          readAndReportData(query[i].addr, query[i].reg, query[i].bytes, query[i].stopTX);
         }
       }
     }
-    // report i2c data for all device with read continuous mode enabled
-    if (queryIndex > -1) {
-      for (byte i = 0; i < queryIndex + 1; i++) {
-        readAndReportData(query[i].addr, query[i].reg, query[i].bytes, query[i].stopTX);
-      }
-    }
-  }
 
-#ifdef FIRMATA_SERIAL_FEATURE
-  serialFeature.update();
-#endif
+  #ifdef FIRMATA_SERIAL_FEATURE
+    serialFeature.update();
+  #endif
+  }
 }
 
 void runRPI(){

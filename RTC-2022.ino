@@ -18,7 +18,7 @@ void setup() {
 
   // debug
   // setup serial
-  Serial.begin(115200);
+  Serial.begin(57800);
   delay(10);
   
   // setup components

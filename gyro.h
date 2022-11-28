@@ -4,7 +4,6 @@
 #include "GY521.h"
 
 // AD0 connected to GND => 0x68 AD0 connected to VCC => 0x69
-
 GY521 sensor(0x69);
 
 uint32_t counter = 0;

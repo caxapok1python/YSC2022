@@ -1,3 +1,4 @@
+// pid regulator
 #include "GyverPID.h"
 
 #define DT 30
@@ -42,7 +43,7 @@ void checkAutomotive(){
     delay(100);
   }
 
-  if (buttonLeft > buttonRange){  // pressed left button
+  if (buttonLeft){  // pressed left button
     delay(50);
     // control Arduino from Raspberry PI
     runRPI(); 
