@@ -17,19 +17,17 @@ class Camera:
         self.dt = None
 
         self.cap = cv2.VideoCapture(camera_input)
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-        self.cap.set(cv2.CAP_PROP_FRAME_COUNT, fps)
+        # self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        # self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+        # self.cap.set(cv2.CAP_PROP_FRAME_COUNT, fps)
 
-        self.height, self.width = height, width
+        self.height, self.width = 480, 640
 
         self.set_line_params()
 
-    def set_line_params(self, dt=90, work_pos=80, work_height=20, work_width=60, blur=13):
-        # self.work_pos = self.height * 0.01 * work_pos
+    def set_line_params(self, dt=70, work_pos=400, work_height=20, work_width=60, blur=13):
         self.work_pos = work_pos
         self.work_height = work_height
-        # self.work_width = self.width * 0.01 * work_width
         self.work_width = work_width
         self.blur = blur
         self.robot_center = (self.work_width // 2, self.height - 5)
