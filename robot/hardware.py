@@ -40,7 +40,7 @@ class Chassis:
         :return: None
         '''
         sp = self.statpower
-        if angle > 0:
+        if angle < 0:
             lpower = sp - (sp * abs(angle) / 90 * self.k)
             rpower = sp
         else:
