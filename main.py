@@ -18,8 +18,8 @@ while True:
     # print(dt)
 
     callback = Callback(robot)
-    robot.camera.track_line(print)
-    # robot.camera.track_line(callback.follow_line)
+    # robot.camera.track_line(print)
+    robot.camera.track_line(callback.follow_line)
 
 
 
