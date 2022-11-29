@@ -11,7 +11,7 @@ while True:
     robot.setup_motors((3, 7, 5), (2, 4, 6), max_power=0.3, k=3)
     # robot = Robot()  # without motors
     robot.setup_camera(0)
-    robot.camera.set_line_params(dt=60, work_pos=400, work_width=300, work_height=20, blur=13)
+    robot.camera.set_line_params(dt=80, work_pos=400, work_width=300, work_height=20, blur=13)
     # _, img = robot.camera.cap.read()
     # img = cv2.imread('test1.png')
     # dt = robot.camera.autoconf_dt(img)
