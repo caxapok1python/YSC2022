@@ -62,7 +62,6 @@ class Camera:
                 ret, img = self.cap.read()
                 if not ret:
                     break
-                cv2.imread('../tmp.png', img)
                 crop = img[self.work_pos:self.work_pos + self.work_height,
                        0 + int((self.width - self.work_width) / 2):self.width - int((self.width - self.work_width) / 2)]
                 gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
