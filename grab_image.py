@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-dts = [50, 70, 90, 110, 150, 170, 200]
+dts = [50, 70, 90, 100, 110, 150, 170, 200]
 
 
 def apply_dt(dt, img):
