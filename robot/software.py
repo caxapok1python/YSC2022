@@ -58,11 +58,13 @@ class Camera:
         return 115
 
     def track_line(self, callback=print):
+
         while True:
             try:
                 ret, img = self.cap.read()
                 if not ret:
                     break
+                cv2.imread('../tmp.png', img)
                 crop = img[self.work_pos:self.work_pos + self.work_height,
                        0 + int((self.width - self.work_width) / 2):self.width - int((self.width - self.work_width) / 2)]
                 gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
@@ -73,7 +75,7 @@ class Camera:
                 if 10000 <= moments['m00'] <= 100000:
                     if moments['m00'] > self.work_width * self.work_height * 1000:
                         thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
-                        cv2.imread('../tmp.png', img)
+
                         moments = cv2.moments(thrsh1)
                     line_center = (int(moments["m10"] / moments["m00"]), int(moments["m01"] / moments["m00"]))
                     callback(line_center)
