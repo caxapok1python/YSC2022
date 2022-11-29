@@ -15,9 +15,10 @@ cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 620)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 cap.set(cv2.CAP_PROP_FRAME_COUNT, 90)
-
-_, image = cap.read()
-cv2.imwrite('../tmp/tmp.png', image)
-for i in dts:
-    th = apply_dt(i, image)
-    cv2.imwrite(f'../tmp/{i}.png', th)
+while True:
+    _, image = cap.read()
+    cv2.imwrite('../tmp/tmp.png', image)
+    for i in dts:
+        th = apply_dt(i, image)
+        cv2.imwrite(f'../tmp/{i}.png', th)
+    cv2.waitKey(1)
