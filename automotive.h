@@ -21,7 +21,7 @@ GyverPID regulator(0, 0, 0, DT);
 
 // Automotive banka
 void autoCatch(){
-  man2Pos(workPos);
+  man2Pos(defaultPos);
   readCap();
   while (!capState){
     manualPower(LEFT, PODEZD_K_BANKE);
@@ -32,7 +32,7 @@ void autoCatch(){
   manualPower(RIGHT, 0);
   manCatch(true);
   delay(500);
-  man2Pos(defaultPos);
+  man2Pos(workPos);
   delay(1000);
 }
 
