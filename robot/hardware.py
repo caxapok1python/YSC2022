@@ -42,9 +42,13 @@ class Chassis:
         sp = self.statpower
         if angle < 0:
             lpower = sp - (sp * abs(angle) / 90 * self.k)
+            if lpower < 0:
+                lpower = 0
             rpower = sp
         else:
             rpower = sp - (sp * abs(angle) / 90 * self.k)
+            if rpower < 0:
+                rpower = 0
             lpower = sp
 
         print(lpower, rpower)
