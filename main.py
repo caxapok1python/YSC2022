@@ -16,6 +16,9 @@ callback = Callback(robot)
 # robot.camera.track_line(print)
 robot.camera.track_line(callback.follow_line)
 robot = Robot('/dev/ttyUSB0')
+robot.setup_motors((3, 7, 5), (2, 4, 6), max_power=0.5, k=1.0)
+robot.setup_camera(0)
+robot.stop()
 exit(0)
 
 
