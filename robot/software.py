@@ -69,7 +69,7 @@ class Camera:
                 _, thrsh1 = cv2.threshold(gray, self.dt, 255, cv2.THRESH_BINARY_INV)
                 moments = cv2.moments(thrsh1)
                 # print(moments['m00'])
-                if 10000 <= moments['m00'] <= 100000:
+                if 1 <= moments['m00'] <= 100000:
                     if moments['m00'] > self.work_width * self.work_height * 1000:
                         thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
 
