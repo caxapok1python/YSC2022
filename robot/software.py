@@ -59,6 +59,7 @@ class Camera:
         while True:
             try:
                 ret, img = self.cap.read()
+                cv2.imwrite('../tmp/work_full.png', img)
                 if not ret:
                     break
                 crop = img[self.work_pos:self.work_pos + self.work_height,
