@@ -12,12 +12,13 @@ def apply_dt(dt, img):
 
 
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 620)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-cap.set(cv2.CAP_PROP_FRAME_COUNT, 90)
+# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 620)
+# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+# cap.set(cv2.CAP_PROP_FRAME_COUNT, 90)
 while True:
-    _, image = cap.read()
+    ret, image = cap.read()
     cv2.imwrite('../tmp/tmp.png', image)
+    print(image.shape)
     for i in dts:
         th = apply_dt(i, image)
         cv2.imwrite(f'../tmp/{i}.png', th)
