@@ -13,8 +13,8 @@ robot.camera.set_line_params(dt=90, work_pos=robot.camera.height//2-100, work_wi
 # print(dt)
 
 callback = Callback(robot)
-robot.camera.track_line(print)
-# robot.camera.track_line(callback.follow_line)
+# robot.camera.track_line(print)
+robot.camera.track_line(callback.follow_line)
 
 
 
