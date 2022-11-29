@@ -59,29 +59,34 @@ class Camera:
 
     def track_line(self, callback=print):
         while True:
-            ret, img = self.cap.read()
-            if not ret:
+            try:
+                ret, img = self.cap.read()
+                if not ret:
+                    break
+                crop = img[self.work_pos:self.work_pos + self.work_height,
+                       0 + int((self.width - self.work_width) / 2):self.width - int((self.width - self.work_width) / 2)]
+                gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+                gray = cv2.GaussianBlur(gray, (self.blur, self.blur), 0)
+                _, thrsh1 = cv2.threshold(gray, self.dt, 255, cv2.THRESH_BINARY_INV)
+                moments = cv2.moments(thrsh1)
+                if moments['m00'] != 0:
+                    if moments['m00'] > self.work_width * self.work_height * 1000:
+                        thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
+                        moments = cv2.moments(thrsh1)
+                    line_center = (int(moments["m10"] / moments["m00"]), int(moments["m01"] / moments["m00"]))
+                    callback(line_center)
+                # cv2.imshow("image", thrsh1)
+                key = cv2.waitKey(1) & 0xFF
+            except KeyboardInterrupt:
                 break
-            crop = img[self.work_pos:self.work_pos + self.work_height,
-                   0 + int((self.width - self.work_width) / 2):self.width - int((self.width - self.work_width) / 2)]
-            gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
-            gray = cv2.GaussianBlur(gray, (self.blur, self.blur), 0)
-            _, thrsh1 = cv2.threshold(gray, self.dt, 255, cv2.THRESH_BINARY_INV)
-            moments = cv2.moments(thrsh1)
-            if moments['m00'] != 0:
-                if moments['m00'] > self.work_width * self.work_height * 1000:
-                    thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
-                    moments = cv2.moments(thrsh1)
-                line_center = (int(moments["m10"] / moments["m00"]), int(moments["m01"] / moments["m00"]))
-                callback(line_center)
-            # cv2.imshow("image", thrsh1)
-            key = cv2.waitKey(1) & 0xFF
+        self.stop()
 
-    def read_qr(self):
+    def read_qr(self, callback=print):
         detector = cv2.QRCodeDetector()
         while True:
             ret, img = self.cap.read()
-            data, bbox, _ = detector.detectAndDecode(img)
+            data, _, _ = detector.detectAndDecode(img)
+            callback(data)
 
     def stop(self):
         self.cap.release()
