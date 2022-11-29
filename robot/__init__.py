@@ -35,6 +35,7 @@ class Callback:
         return float(np.degrees(atan2(dx, dy)))
 
     def follow_line(self, *args):
+        print(args[0][0], self.robot.camera.work_width//2)
         angle = self.calculate_angle(*args)
         print(angle)
         self.robot.chassis.direction(angle)
