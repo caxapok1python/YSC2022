@@ -1,4 +1,5 @@
-main:
-	sudo nano main.py
+run:
 	python3 main.py
-	python3 main.py
+
+update:
+	git pull

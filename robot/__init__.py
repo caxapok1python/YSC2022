@@ -36,4 +36,5 @@ class Callback:
 
     def follow_line(self, *args):
         angle = self.calculate_angle(*args)
+        print(angle)
         self.robot.chassis.direction(angle)
