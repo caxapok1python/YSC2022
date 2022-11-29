@@ -83,13 +83,6 @@ class Camera:
                 break
         self.stop()
 
-    def read_qr(self, callback=print):
-        detector = cv2.QRCodeDetector()
-        while True:
-            ret, img = self.cap.read()
-            data, _, _ = detector.detectAndDecode(img)
-            callback(data)
-
     def stop(self):
         self.cap.release()
         cv2.destroyAllWindows()
