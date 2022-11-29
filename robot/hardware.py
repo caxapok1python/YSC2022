@@ -28,7 +28,7 @@ class Motor:
 
 
 class Chassis:
-    def __init__(self, leftside: Motor, rightside: Motor, max_power=0.5, k=1.0):
+    def __init__(self, leftside: Motor, rightside: Motor, max_power=0.3, k=1.5):
         self.left = leftside
         self.right = rightside
         self.k = k
