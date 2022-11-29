@@ -1,10 +1,11 @@
+from robot import Robot, Callback
+import cv2
 
 while True:
     a = input()
     if (a):
         break
-    from robot import Robot, Callback
-    import cv2
+
     # robot = Robot('/dev/tty.usbmodem14201')  # with motors macbook
     robot = Robot('/dev/ttyUSB0')  # with motors rasbberry pi
     robot.setup_motors((3, 7, 5), (2, 4, 6), max_power=0.3, k=3)

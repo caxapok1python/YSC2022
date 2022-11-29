@@ -47,6 +47,8 @@ class Chassis:
             rpower = (sp * (90 - abs(angle))) / 90 * self.k
             lpower = sp
 
+        print(lpower, rpower)
+
         self.left.set_power(-1 * lpower)
         self.right.set_power(-1 * rpower)
 
