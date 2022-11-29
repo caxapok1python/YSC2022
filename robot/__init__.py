@@ -31,12 +31,16 @@ class Callback:
         self.robot = robot
 
     def calculate_angle(self, line_center):
-        dx, dy = (self.robot.camera.work_width // 2 - line_center[0], self.robot.camera.work_height)
+        alc = (0 + int((self.robot.camera.width - self.robot.camera.work_width) / 2) + line_center[0],
+               self.robot.camera.work_pos + line_center[1])
+        dx = 640 // 2 - alc[0]
+        dy = 480 - alc[1]
+        # dx, dy = (self.robot.camera.work_width // 2 - line_center[0], self.robot.camera.work_height)
         return float(np.degrees(atan2(dx, dy)))
 
     def follow_line(self, *args):
         print(args)
-        print(args[0][0], self.robot.camera.work_width//2)
+        print(args[0][0], self.robot.camera.work_width // 2)
         angle = self.calculate_angle(*args)
         print(angle)
         self.robot.chassis.direction(angle)
