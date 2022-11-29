@@ -69,10 +69,11 @@ class Camera:
                 gray = cv2.GaussianBlur(gray, (self.blur, self.blur), 0)
                 _, thrsh1 = cv2.threshold(gray, self.dt, 255, cv2.THRESH_BINARY_INV)
                 moments = cv2.moments(thrsh1)
-                print(moments['m00'])
-                if  10000 <= moments['m00'] <= 100000:
+                # print(moments['m00'])
+                if 10000 <= moments['m00'] <= 100000:
                     if moments['m00'] > self.work_width * self.work_height * 1000:
                         thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
+                        cv2.imread('../tmp.png', img)
                         moments = cv2.moments(thrsh1)
                     line_center = (int(moments["m10"] / moments["m00"]), int(moments["m01"] / moments["m00"]))
                     callback(line_center)
