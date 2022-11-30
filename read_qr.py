@@ -10,7 +10,7 @@ while True:
     if not len(decodedObjects):
         continue
     data = decodedObjects[0].data
-    print(data.decode('utf-16'))
+    print(data.decode('utf-16-le'))
     break
 
 cap.release()
