@@ -15,3 +15,8 @@ upload:
 
 qr:
 	python3 read_qr.py
+
+install_qr:
+	sudo apt-get install libzbar-dev libzbar0
+	pip3 install pyzbar
+

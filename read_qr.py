@@ -1,16 +1,15 @@
 import cv2
+import pyzbar.pyzbar as zbar
 cap = cv2.VideoCapture(0)
 print("started")
 detector = cv2.QRCodeDetector()
 print("looking for qr")
 while True:
     ret, img = cap.read()
-    if not ret:
-        break
-    cv2.imwrite('../tmp/qr_work.png', img)
-    data, _, _ = detector.detectAndDecode(img)
-    if data:
-        print(data)
-        break
+    decodedObjects = zbar.decode(img)
+    if not len(decodedObjects):
+        continue
+    print(decodedObjects[0].data)
+    break
 
 cap.release()
