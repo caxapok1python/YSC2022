@@ -59,12 +59,12 @@ class Camera:
         while True:
             try:
                 ret, img = self.cap.read()
-                cv2.imwrite('../tmp/work_full.png', img)
+                # cv2.imwrite('../tmp/work_full.png', img)
                 if not ret:
                     break
                 crop = img[self.work_pos:self.work_pos + self.work_height,
                        0 + int((self.width - self.work_width) / 2):self.width - int((self.width - self.work_width) / 2)]
-                cv2.imwrite('../tmp/work.png', crop)
+                # cv2.imwrite('../tmp/work.png', crop)
                 gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
                 gray = cv2.GaussianBlur(gray, (self.blur, self.blur), 0)
                 _, thrsh1 = cv2.threshold(gray, self.dt, 255, cv2.THRESH_BINARY_INV)
