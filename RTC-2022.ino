@@ -14,7 +14,7 @@
 └─────────────────────────────────────────────────────────────┘
 */
 void setup() {
-  setupRescure(); // setup sercure reset pin
+  // setupRescure(); // setup sercure reset pin
 
   // debug
   // setup serial
@@ -26,6 +26,8 @@ void setup() {
   setupJoystick(); // joystick
   
   setupMotors(); // motors: setup drivers
+  Serial.println("Motors has been configurated!!");
+
   setupMan(); // manipulator
 
   setupGyro(); // gyro & acceleration

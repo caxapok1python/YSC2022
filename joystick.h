@@ -19,7 +19,7 @@ const short int tumblerRange[3] = {1200, 1800}; // tumbler range (min deadline, 
 const short int buttonRange = 1500; // button deadpoint
 
 // setup default position of sticks
-short int leftStick = stickRange[2]; 
+short int leftStick = 0; 
 short int rightStick = stickRange[2]; 
 
 // setup default position of tumblers

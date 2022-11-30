@@ -14,15 +14,30 @@
 
 // setup pins
 void setupMotors(){
-  while (leftStick < 500){
-    readSticks();
-  }
   pinMode(LEFT_A, OUTPUT);
   pinMode(LEFT_B, OUTPUT);
   pinMode(LEFT_PWM, OUTPUT);
   pinMode(RIGHT_A, OUTPUT);
   pinMode(RIGHT_B, OUTPUT);
   pinMode(RIGHT_PWM, OUTPUT);
+  digitalWrite(LEFT_A, LOW);
+  digitalWrite(LEFT_B, LOW);
+  analogWrite(LEFT_PWM, 0);
+  digitalWrite(RIGHT_A, LOW);
+  digitalWrite(RIGHT_B, LOW);
+  analogWrite(RIGHT_PWM, 0);
+  
+  Serial.println(leftStick);
+  while (leftStick < 500){
+    readSticks();
+    digitalWrite(LEFT_A, LOW);
+    digitalWrite(LEFT_B, LOW);
+    analogWrite(LEFT_PWM, 0);
+    digitalWrite(RIGHT_A, LOW);
+    digitalWrite(RIGHT_B, LOW);
+    analogWrite(RIGHT_PWM, 0);
+  }
+  Serial.println(leftStick);
 }
 
 // convert joysick value to pwm forward
