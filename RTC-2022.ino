@@ -31,6 +31,7 @@ void setup() {
   setupMan(); // manipulator
 
   setupGyro(); // gyro & acceleration
+  
 }
 
 

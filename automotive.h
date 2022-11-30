@@ -1,8 +1,9 @@
+#include "Arduino.h"
 // pid regulator
 #include "GyverPID.h"
 
 #define DT 30
-#define PODEZD_K_BANKE 50  // max 255
+#define PODEZD_K_BANKE 40  // max 255
 
 // regulator coefs
 #define kp = 1.0;
@@ -57,4 +58,25 @@ void autopilot(const short int direction, const short int speed){
   }
   // drive backward
   ;
+}
+
+void time_banka(){
+  // подготовка
+  manCatch(false);  // разжимаем клешню
+  manualPower(LEFT, 0); // остановка левой стороны
+  manualPower(RIGHT, 0); // остновка правой стороны
+  delay(1000); // ждем не понятно чего
+  manualPower(LEFT, PODEZD_K_BANKE); // поехали левым мотором
+  manualPower(RIGHT, PODEZD_K_BANKE); // плехали правым мотором
+  delay(1700); // ждем отъезда
+  manualPower(LEFT, 0); // остановка левой стороны
+  manualPower(RIGHT, 0); // остновка правой стороны
+  manCatch(true); // зажимаем клешню
+  delay(500); // ожидание между 
+  man2Pos(workPos); // поднимаем манипулятор
+  manualPower(LEFT, -1 * PODEZD_K_BANKE); // отъчезжаем левым мотором
+  manualPower(RIGHT, -1 * PODEZD_K_BANKE); // отъезжаем правым мотором
+  delay(1000); 
+  manualPower(LEFT, 0); // остановка левой стороны
+  manualPower(RIGHT, 0); // остновка правой стороны
 }
