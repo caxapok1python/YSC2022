@@ -9,7 +9,8 @@ while True:
     decodedObjects = zbar.decode(img)
     if not len(decodedObjects):
         continue
-    print(decodedObjects[0].data)
+    data = decodedObjects[0].data
+    print(data.decode('utf-8'))
     break
 
 cap.release()
