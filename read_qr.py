@@ -7,6 +7,7 @@ while True:
     ret, img = cap.read()
     if not ret:
         break
+    cv2.imwrite('../tmp/qr_work.png')
     data, _, _ = detector.detectAndDecode(img)
     if data:
         print(data)
