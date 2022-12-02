@@ -6,6 +6,9 @@ void setupRescure(){
   digitalWrite(RST, HIGH);
   pinMode(RST, OUTPUT);
 }
+
 void resetArduino(){
   digitalWrite(RST, LOW);
 }
+
+void(* resetFunc) (void) = 0;

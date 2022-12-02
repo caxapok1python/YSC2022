@@ -51,32 +51,44 @@ short int backwardPwm(const short int val){
 }
 
 // setup power manualy (0 <= power <= 255)
-void manualPower(bool left, const short int power){
+void manualPower(bool left, const short int a){
+  if (a == 0){
+    if (left){
+      digitalWrite(LEFT_A, LOW);
+      digitalWrite(LEFT_B, LOW);
+      analogWrite(LEFT_PWM, 0);
+      return;
+    }
+    digitalWrite(RIGHT_A, LOW);
+    digitalWrite(RIGHT_B, LOW);
+    analogWrite(RIGHT_PWM, 0);
+    return;
+  }
   // forward
-  if (power > 0){ 
+  if (a > 0){ 
     if (left){ // left
       digitalWrite(LEFT_A, HIGH);
       digitalWrite(LEFT_B, HIGH);
-      analogWrite(LEFT_PWM, power);
+      analogWrite(LEFT_PWM, 255-a);
       return;
     } 
     // right
     digitalWrite(RIGHT_A, HIGH);
     digitalWrite(RIGHT_B, HIGH);
-    analogWrite(RIGHT_PWM, power);
+    analogWrite(RIGHT_PWM, 255-a);
     return;
   }
   // backward
   if (left){ // left
       digitalWrite(LEFT_A, HIGH);
       digitalWrite(LEFT_B, LOW);
-      analogWrite(LEFT_PWM, power);
+      analogWrite(LEFT_PWM, 255-a);
       return;
     }
     // right
     digitalWrite(RIGHT_A, HIGH);
     digitalWrite(RIGHT_B, LOW);
-    analogWrite(RIGHT_PWM, power);
+    analogWrite(RIGHT_PWM, 255-a);
     return;
 }
 

@@ -4,8 +4,8 @@
 #include "joystick.h" // joystick library
 #include "motors.h" // motors driver library
 #include "manipulator.h" // manipulator library
-#include "gyro.h" // gyto library (no code)
 #include "rpi.h" // rpi library (no code)
+#include "gyro.h" // gyto library (no code)
 #include "automotive.h" // automatisation library
 
 /*
@@ -14,7 +14,7 @@
 └─────────────────────────────────────────────────────────────┘
 */
 void setup() {
-  // setupRescure(); // setup sercure reset pin
+  setupRescure(); // setup sercure reset pin
 
   // debug
   // setup serial
@@ -29,7 +29,6 @@ void setup() {
   Serial.println("Motors has been configurated!!");
 
   setupMan(); // manipulator
-
   setupGyro(); // gyro & acceleration
   
 }

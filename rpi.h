@@ -771,7 +771,8 @@ void loopFirmataRPI()
     int btnVal = pulseIn(LEFT_BUTTON, 1);
     // REBOOT ARDUINO
     if (btnVal > buttonRange){
-      resetArduino();
+      resetArduino(); // hardware reset
+      resetFunc(); // software reset
       return;
     }
     byte pin, analogPin;
@@ -788,7 +789,8 @@ void loopFirmataRPI()
       btnVal = pulseIn(LEFT_BUTTON, 1);
       // REBOOT ARDUINO
       if (btnVal > buttonRange){
-      resetArduino();
+      resetArduino(); // hardware reset
+      resetFunc(); // software reset
       return;
     }
 
