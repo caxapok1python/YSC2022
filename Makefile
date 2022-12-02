@@ -1,13 +1,21 @@
-run:
-	python3 main.py
+line1:
+	python3 main.py 63
 
-update:
-	git pull
+line2:
+	python3 main.py 70
+
+line3:
+	python3 main.py 75
+
+line4:
+	python3 main.py 80
+
+line-auto:
+	python3 main.py -1
 
 download:
-	echo "pi" > .password_pi
 	rm /Users/caxapok/Documents/Arduino/RTC-2022/tmp/*
-	scp pi@192.168.2.65:/home/pi/Desktop/tmp/* /Users/caxapok/Documents/Arduino/RTC-2022/tmp/ < .password_pi
+	scp pi@192.168.2.134:/home/pi/Desktop/tmp/* /Users/caxapok/Documents/Arduino/RTC-2022/tmp/
 
 upload:
 	rm ../tmp/*
