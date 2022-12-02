@@ -97,7 +97,7 @@ class Camera:
                 gray = cv2.GaussianBlur(gray, (self.blur, self.blur), 0)
 
                 # Apply adaptive thresholding
-                thrsh1 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 15)
+                thrsh1 = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 9)
                 thrsh1 = cv2.bitwise_not(thrsh1, np.ones(thrsh1.shape, thrsh1.dtype))
 
                 moments = cv2.moments(thrsh1)
