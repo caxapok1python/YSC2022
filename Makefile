@@ -13,15 +13,10 @@ line4:
 line-auto:
 	python3 main.py -1
 
-download-wlan0:
+download:
 	touch tmp/1
 	rm /Users/caxapok/Documents/Arduino/RTC-2022/tmp/*
-	scp pi@192.168.2.65:/home/pi/Desktop/tmp/* /Users/caxapok/Documents/Arduino/RTC-2022/tmp/
-
-download-wlan1:
-	touch tmp/1
-	rm /Users/caxapok/Documents/Arduino/RTC-2022/tmp/*
-	scp pi@192.168.2.134:/home/pi/Desktop/tmp/* /Users/caxapok/Documents/Arduino/RTC-2022/tmp/
+	scp pi@192.168.2.121:/home/pi/Desktop/tmp/* /Users/caxapok/Documents/Arduino/RTC-2022/tmp/
 
 upload:
 	rm ../tmp/*
