@@ -14,8 +14,8 @@ line-auto:
 	python3 main.py -1
 
 download:
-	touch tmp/1
-	rm /Users/caxapok/Documents/Arduino/RTC-2022/tmp/*
+	touch ./tmp/1
+	rm ./tmp/*
 	scp pi@192.168.2.121:/home/pi/Desktop/tmp/* /Users/caxapok/Documents/Arduino/RTC-2022/tmp/
 
 upload:
